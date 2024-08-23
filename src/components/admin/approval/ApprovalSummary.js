@@ -14,7 +14,7 @@ const ApprovalSummary = ({stats}) => {
 
   return (
       <div className={styles['summary-container']}>
-          <h2>스토어 등록 요청</h2>
+          <h2>스토어 등록</h2>
           <div className={styles['summary-pending']}>
               <span>대기</span>
               <span>{PENDING || 0}</span>

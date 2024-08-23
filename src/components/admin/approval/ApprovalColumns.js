@@ -116,13 +116,17 @@ export const ApprovalColumns =
       accessorKey: 'proImage',
       header: '상품 사진',
       size: 80,
-      cell: ({getValue}) =>
-        <img src={getValue() ? `${getValue()}` : defaultImage}
+      cell: ({getValue}) => {
+        const imageUrl = getValue() ? `${BACK_HOST}${getValue()}` : defaultImage;
+        return <img src={imageUrl}
              alt={'상품사진'}
              onClick={() => {
-               window.open(`${BACK_HOST}${getValue()}`, "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=800, height=600, top=30")
+               window.open(imageUrl,
+                 "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=800, height=600, top=30")
              }}>
-        </img>,
+        </img>
+      }
+      ,
       meta: {
         cellProps: centerFlex,
       },

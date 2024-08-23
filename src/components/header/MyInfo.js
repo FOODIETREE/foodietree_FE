@@ -29,10 +29,8 @@ const MyInfo = () => {
 
                     // 유저 타입에 따라 다른 키와 값을 로컬 스토리지에 저장
                     if (getUserRole() === 'store') {
-                        localStorage.setItem('userImage', data.productImg);
-                    } else if (getUserRole() === 'customer') {
-                        localStorage.setItem('userImage', data.profileImage);
-                    } else if (getUserRole() === 'store') {
+                        localStorage.setItem('userImage', data.storeImg);
+                    } else if (getUserRole() === 'customer' || getUserRole() === 'admin') {
                         localStorage.setItem('userImage', data.profileImage);
                     }
 
@@ -72,7 +70,7 @@ const MyInfo = () => {
                         {/* Store 아이콘과 프로필 이미지 */}
                         <Notification email={userInfo.email} role={getUserRole()} />
                         <img
-                            src={userInfo.productImg}
+                            src={userInfo.storeImg}
                             alt="Store Profile"
                             className={styles.profileImage}
                             onClick={() => handleIconClick("/store")}
@@ -95,7 +93,7 @@ const MyInfo = () => {
                         <Notification email={userInfo.email} role={getUserRole()} />
                         <img
                             src={userInfo.profileImage}
-                            alt="Customer Profile"
+                            alt="Admin Profile"
                             className={styles.profileImage}
                             onClick={() => handleIconClick("/admin")}
                         />
