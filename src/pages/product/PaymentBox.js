@@ -4,7 +4,10 @@ import { faMinus, faPlus, faShoppingCart, faStar, faTag } from "@fortawesome/fre
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReservationBtn from "../../components/payment/ReservationBtn";
 
+
 const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrease, handleDecrease, remainProduct, closeModal, cntHandler  }) => {
+
+// const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrease, handleDecrease, remainProduct }) => {
     const howMuchSaved = Math.floor(((productDetail.storeInfo.price / 0.3) - productDetail.storeInfo.price) * initialCount);
     const totalPrice = productDetail.storeInfo.price * initialCount;
     const originalPrice = Math.floor(productDetail.storeInfo.price / 0.3) * initialCount;
@@ -40,6 +43,12 @@ const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrea
                         remainProduct === 0 ? '': <p>{totalPrice}원</p>
                     }
                 </div>
+{/*=======*/}
+{/*                    <ReservationBtn style={styles.reservationBtn} tar={{remainProduct, initialCount, productDetail}}>*/}
+{/*                        <p>Place Order</p>*/}
+{/*                        <p>{totalPrice}원</p>*/}
+{/*                    </ReservationBtn>*/}
+{/*>>>>>>> upstream/main*/}
             </div>
             <div className={styles.orderSum}>
                 <p>

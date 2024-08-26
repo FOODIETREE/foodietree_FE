@@ -84,6 +84,20 @@ const ProductDetailModal = ({productDetail, onClose, setStoreListHandler}) => {
                         cntHandler={setStoreListHandler}
                     />
                 )}
+{/*            </section>*/}
+{/*            {!isMobile && (*/}
+{/*                <PaymentBox*/}
+{/*                    makeReservation={makeReservation}*/}
+{/*                    productDetail={productInfo}*/}
+{/*                    initialCount={initialCount}*/}
+{/*                    handleIncrease={handleIncrease}*/}
+{/*                    handleDecrease={handleDecrease}*/}
+{/*                    remainProduct={productCnt}*/}
+{/*                    closeModal={closeModal}*/}
+{/*                    cntHandler={setStoreListHandler}*/}
+{/*                />*/}
+{/*<<<<<<< HEAD*/}
+{/*=======*/}
             </section>
             {!isMobile && (
                 <PaymentBox
@@ -93,8 +107,6 @@ const ProductDetailModal = ({productDetail, onClose, setStoreListHandler}) => {
                     handleIncrease={handleIncrease}
                     handleDecrease={handleDecrease}
                     remainProduct={productCnt}
-                    closeModal={closeModal}
-                    cntHandler={setStoreListHandler}
                 />
             )}
         </section>
