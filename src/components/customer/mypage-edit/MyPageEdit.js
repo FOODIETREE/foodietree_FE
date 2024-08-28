@@ -3,6 +3,7 @@ import styles from './MyPageEdit.module.scss';
 import SideBar from "./SideBar";
 import Edit from "./Edit";
 import SideBarBtn from "../../store/mypage-edit/SideBarBtn";
+import MobileMenuBar from "../../../layout/MobileMenuBar";
 
 const MyPageEdit = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -26,6 +27,8 @@ const MyPageEdit = () => {
                 <SideBar isShow={show}/>
                 <Edit />
             </div>
+
+            {width <= 400 && <MobileMenuBar />}
         </section>
     );
 };

@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom'; // useNavigate import
 const MobileMenuBar = () => {
     const navigate = useNavigate(); // useNavigate 훅 사용
 
+    const handleNavigate = (path, view) => {
+        navigate(`${path}?view=${view}`);
+    };
+
     return (
         <div className={styles.mobileMenuBar}>
             <div className={styles.menuItem} onClick={() => navigate('/main')}>
@@ -20,7 +24,7 @@ const MobileMenuBar = () => {
                 <FaComments size={24} />
                 <span>커뮤니티</span>
             </div>
-            <div className={styles.menuItem} onClick={() => navigate('/customer/edit')}>
+            <div className={styles.menuItem} onClick={() => handleNavigate('/customer', 'myPage')}>
                 <FaUserCircle size={24} />
                 <span>마이페이지</span>
             </div>

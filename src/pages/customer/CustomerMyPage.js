@@ -8,9 +8,10 @@ import FavoriteStore from "../../components/customer/mypage/FavoriteStore";
 import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 
 import {authFetch, checkAuthToken} from "../../utils/authUtil";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import MobileMenuBar from '../../layout/MobileMenuBar';
 import {BACK_HOST, BASE_URL} from "../../config/host-config";
+import SideBar from "../../components/customer/mypage-edit/SideBar";
 
 // const BASE_URL = window.location.origin;
 
@@ -28,6 +29,11 @@ const CustomerMyPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [userInfo, setUserInfo] = useState(null); // userInfo를 상태로 관리
     const ITEMS_PER_PAGE = 10;
+    const [showSideBar, setShowSideBar] = useState(false);
+
+    const location = useLocation(); // useLocation 훅 사용
+    const searchParams = new URLSearchParams(location.search); // URLSearchParams로 쿼리 파라미터를 가져옴
+    const view = searchParams.get('view'); // 쿼리 파라미터에서 view 값을 가져옴
 
     /**
      * 토큰이 있으면 현재 페이지 유지
@@ -65,6 +71,13 @@ const CustomerMyPage = () => {
             window.removeEventListener("resize", setInnerWidth);
         }
     }, []);
+
+    // view 파라미터가 'mypage'라면 사이드바를 자동으로 열도록 설정
+    useEffect(() => {
+        if (view === 'myPage') {
+            setShowSideBar(true);
+        }
+    }, [view]);
 
     const setInnerWidth = () => {
         setWidth(window.innerWidth);
@@ -230,8 +243,13 @@ const CustomerMyPage = () => {
             {width <= 400 && <SideBarBtn onShow={showHandler} />}
             <div className={styles.myPageArea}>
                 <div className={styles.container}>
-                    <Profile customerMyPageDto={customerData} stats={stats} isShow={show} width={width} />
-                    <div className={styles.content}>
+                    {view === 'myPage' && (
+                        <>
+                            <Profile customerMyPageDto={customerData} stats={stats} isShow={showSideBar} width={width} />
+                            {showSideBar && <SideBar onClose={showHandler} />}
+                        </>
+                    )}
+                    {view !== 'myPage' && (
                         <CustomerReservationList
                             reservations={displayReservations}
                             onUpdateReservations={setReservations}
@@ -241,20 +259,44 @@ const CustomerMyPage = () => {
                             onApplyFilters={applyFilters}
                             onFetchReservations={() => fetchReservations(userInfo.token, userInfo.refreshToken)}
                         />
-
-                        {width > 400 && (
-                            <>
-                                <PreferredArea preferredAreas={customerData.preferredArea} />
-                                <PreferredFood preferredFoods={customerData.preferredFood} />
-                                <FavoriteStore favStores={customerData.favStore} />
-                                
-                            </>
-                        )}
-                    </div>
+                    )}
+                    {width > 400 && (
+                        <>
+                            <PreferredArea preferredAreas={customerData.preferredArea} />
+                            <PreferredFood preferredFoods={customerData.preferredFood} />
+                            <FavoriteStore favStores={customerData.favStore} />
+                        </>
+                    )}
                 </div>
                 {width <= 400 && <MobileMenuBar />}
             </div>
         </>
+
+        //             <Profile customerMyPageDto={customerData} stats={stats} isShow={show} width={width} />
+        //             <div className={styles.content}>
+        //                 <CustomerReservationList
+        //                     reservations={displayReservations}
+        //                     onUpdateReservations={setReservations}
+        //                     loadMore={loadMore}
+        //                     hasMore={hasMore}
+        //                     isLoading={isLoading}
+        //                     onApplyFilters={applyFilters}
+        //                     onFetchReservations={() => fetchReservations(userInfo.token, userInfo.refreshToken)}
+        //                 />
+        //
+        //                 {width > 400 && (
+        //                     <>
+        //                         <PreferredArea preferredAreas={customerData.preferredArea} />
+        //                         <PreferredFood preferredFoods={customerData.preferredFood} />
+        //                         <FavoriteStore favStores={customerData.favStore} />
+        //
+        //                     </>
+        //                 )}
+        //             </div>
+        //         </div>
+        //         {width <= 400 && <MobileMenuBar />}
+        //     </div>
+        // </>
     );
 };
 
